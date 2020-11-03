@@ -10,17 +10,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RingBox">
         <activity
+            android:name=".FormActivity"
+            android:label="@string/title_activity_form"
+            android:theme="@style/Theme.RingBox.NoActionBar"></activity>
+        <activity
             android:name=".ListActivity"
             android:label="@string/title_activity_list"
-            android:theme="@style/Theme.RingBox.NoActionBar"></activity>
-        <activity android:name=".LogoActivity" android:theme="@style/Theme.RingBox.NoActionBar">
+            android:theme="@style/Theme.RingBox.NoActionBar" />
+        <activity
+            android:name=".LogoActivity"
+            android:theme="@style/Theme.RingBox.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>
