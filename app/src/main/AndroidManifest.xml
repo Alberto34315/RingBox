@@ -10,15 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RingBox">
         <activity
-            android:name=".FormActivity"
+            android:name=".Views.FormActivity"
             android:label="@string/title_activity_form"
             android:theme="@style/Theme.RingBox.NoActionBar"></activity>
         <activity
-            android:name=".ListActivity"
+            android:name=".Views.ListActivity"
             android:label="@string/title_activity_list"
             android:theme="@style/Theme.RingBox.NoActionBar" />
         <activity
-            android:name=".LogoActivity"
+            android:name=".Views.LogoActivity"
             android:theme="@style/Theme.RingBox.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

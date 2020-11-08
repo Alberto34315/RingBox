@@ -1,9 +1,11 @@
-package com.example.ringbox;
+package com.example.ringbox.Views;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.example.ringbox.R;
 
 import java.util.Timer;
 import java.util.TimerTask;
