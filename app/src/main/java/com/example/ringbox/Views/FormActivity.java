@@ -1,14 +1,10 @@
 package com.example.ringbox.Views;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.ringbox.Interfaces.IFormInterfaces;
-import com.example.ringbox.Interfaces.IListInterfaces;
 import com.example.ringbox.Presenters.FormPresenter;
 import com.example.ringbox.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -26,9 +22,22 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
+        Toolbar toolbar = findViewById(R.id.toolbarForm);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setTitle(getResources().getString(R.string.app_name));
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Asignar la acción necesaria. En este caso "volver atrás"
+                    onBackPressed();
+                }
+            });
+        } else {
+            Log.d("SobreNosotros", "Error al cargar toolbar");
+        }
         presenter=new FormPresenter(this);
         Button save=(Button) findViewById(R.id.guardar);
         save.setOnClickListener(new View.OnClickListener() {
@@ -43,7 +52,11 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
         spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categoria));
 
     }
-
+    @Override
+    public boolean onNavigateUp() {
+        // Asignar la acción necesaria. En este caso terminar la actividad
+        return true;
+    }
 
     @Override
     public void closeFormActivity() {

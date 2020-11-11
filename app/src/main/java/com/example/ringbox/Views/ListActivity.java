@@ -6,7 +6,6 @@ import android.os.Bundle;
 import com.example.ringbox.Interfaces.IListInterfaces;
 import com.example.ringbox.Presenters.ListPresenter;
 import com.example.ringbox.R;
-import com.example.ringbox.Views.FormActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +21,7 @@ public class ListActivity extends AppCompatActivity implements IListInterfaces.V
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbarForm);
         setSupportActionBar(toolbar);
 
          presenter=new ListPresenter(this);
