@@ -24,13 +24,12 @@
 
             <ImageView
                 android:id="@+id/calendarIco"
-                android:layout_width="37dp"
-                android:layout_height="41dp"
+                android:layout_width="41dp"
+                android:layout_height="47dp"
                 app:layout_constraintBottom_toBottomOf="@+id/FechaTextInputLayout"
                 app:layout_constraintEnd_toStartOf="@+id/FechaTextInputLayout"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/FechaTextInputLayout"
-                app:srcCompat="@android:drawable/ic_menu_my_calendar" />
+                app:srcCompat="@drawable/calendario" />
 
             <ImageView
                 android:id="@+id/categoriaIco"
@@ -81,11 +80,11 @@
 
             <ImageView
                 android:id="@+id/Image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="200dp"
+                android:layout_width="149dp"
+                android:layout_height="157dp"
+                android:layout_marginEnd="210dp"
                 android:layout_marginBottom="480dp"
-                android:background="#FFFFFF"
+                android:background="@drawable/foto"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -217,7 +216,53 @@
                 app:layout_constraintBottom_toBottomOf="@+id/movilInputLayout"
                 app:layout_constraintEnd_toStartOf="@+id/movilInputLayout"
                 app:layout_constraintTop_toTopOf="@+id/movilInputLayout"
-                app:srcCompat="@android:drawable/stat_sys_phone_call" />
+                app:srcCompat="@drawable/telefono" />
+
+            <ImageView
+                android:id="@+id/NombreIco"
+                android:layout_width="34dp"
+                android:layout_height="40dp"
+                app:layout_constraintBottom_toBottomOf="@+id/nameInputLayout"
+                app:layout_constraintEnd_toStartOf="@+id/nameInputLayout"
+                app:layout_constraintTop_toTopOf="@+id/nameInputLayout"
+                app:srcCompat="@drawable/usuario" />
+
+            <ImageView
+                android:id="@+id/apellido1Ico"
+                android:layout_width="65dp"
+                android:layout_height="58dp"
+                app:layout_constraintBottom_toBottomOf="@+id/apellido1InputLayout"
+                app:layout_constraintEnd_toStartOf="@+id/apellido1InputLayout"
+                app:layout_constraintTop_toTopOf="@+id/apellido1InputLayout"
+                app:srcCompat="@drawable/usuario__1_" />
+
+            <ImageView
+                android:id="@+id/apellido2Ico"
+                android:layout_width="65dp"
+                android:layout_height="58dp"
+                app:layout_constraintBottom_toBottomOf="@+id/apellido2InputLayout"
+                app:layout_constraintEnd_toStartOf="@+id/apellido2InputLayout"
+                app:layout_constraintTop_toTopOf="@+id/apellido2InputLayout"
+                app:srcCompat="@drawable/usuario__1_" />
+
+            <ImageView
+                android:id="@+id/profesionalIco"
+                android:layout_width="44dp"
+                android:layout_height="62dp"
+                app:layout_constraintBottom_toBottomOf="@+id/profesional"
+                app:layout_constraintEnd_toStartOf="@+id/profesional"
+                app:layout_constraintTop_toTopOf="@+id/profesional"
+                app:srcCompat="@drawable/empresario_profesional" />
+
+            <ImageButton
+                android:id="@+id/anadirButton"
+                android:layout_width="34dp"
+                android:layout_height="42dp"
+                android:layout_marginStart="1dp"
+                app:layout_constraintBottom_toBottomOf="@+id/FechaTextInputLayout"
+                app:layout_constraintStart_toEndOf="@+id/FechaTextInputLayout"
+                app:layout_constraintTop_toTopOf="@+id/FechaTextInputLayout"
+                app:srcCompat="@android:drawable/ic_input_add" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
