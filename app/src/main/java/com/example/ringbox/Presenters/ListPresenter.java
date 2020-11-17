@@ -16,4 +16,10 @@ public class ListPresenter implements IListInterfaces.Presenter {
         Log.d(TAG,"onClickFloatingButton.....");
         view.startFormActivity();
     }
+
+    @Override
+    public void onClickMenuAbout() {
+        Log.d(TAG,"onClickMenuAbout.....");
+        view.startAboutActivity();
+    }
 }

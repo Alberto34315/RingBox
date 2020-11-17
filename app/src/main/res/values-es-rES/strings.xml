@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RingBox</string>
+    <string name="action_settings">Opciones</string>
+    <string name="action_ordenar">Ordenar</string>
+    <string name="action_help">Ayuda</string>
+    <string name="action_about">Sobre nosotros</string>
+    <string name="search">Buscar</string>
+    <string name="title_activity_list">Lista</string>
+    <string name="title_activity_form">Formulario</string>
+    <string name="next">Siguiente</string>
+    <string name="previous">Anterior</string>
+    <string name="second_fragment_label">Segundo Fragmento</string>
+    <string name="first_fragment_label">Primer Fragmento</string>
+    <string name="hello_first_fragment">Hola Primer Fragmento</string>
+    <string name="hello_second_fragment">Hola Segundo Fragmento</string>
+</resources>

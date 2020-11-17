@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 public class ListActivity extends AppCompatActivity implements IListInterfaces.View {
@@ -22,7 +24,13 @@ public class ListActivity extends AppCompatActivity implements IListInterfaces.V
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
         Toolbar toolbar = findViewById(R.id.toolbarForm);
-        setSupportActionBar(toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setTitle("List");
+
+        } else {
+            Log.d(TAG, "Error al cargar toolbar");
+        }
 
          presenter=new ListPresenter(this);
 
@@ -41,5 +49,45 @@ public class ListActivity extends AppCompatActivity implements IListInterfaces.V
         Log.d(TAG,"StartFormActivity.....");
         Intent intent = new Intent(getApplicationContext(), FormActivity.class);
         startActivity(intent);
+    }
+    @Override
+    public void startAboutActivity() {
+        Log.d(TAG,"startAboutActivity.....");
+        Intent intent = new Intent(getApplicationContext(), AboutActivity.class);
+        startActivity(intent);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_settings) {
+            Log.d(TAG, "Starting Settings");
+            return true;
+        }
+        if (id == R.id.action_order) {
+            Log.d(TAG, "Starting Order");
+            return true;
+        }
+        if (id == R.id.action_help) {
+            Log.d(TAG, "Starting Help");
+            return true;
+        }
+        if (id == R.id.action_about) {
+            Log.d(TAG, "Starting About");
+            presenter.onClickMenuAbout();
+            return true;
+        }
+        if (id == R.id.action_search) {
+            Log.d(TAG, "Starting search");
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -11,4 +11,9 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_list">ListActivity</string>
     <string name="title_activity_form">FormActivity</string>
+    <string name="search">search</string>
+    <string name="action_ordenar">Order</string>
+    <string name="action_help">Help</string>
+    <string name="action_about">About</string>
+    <string name="title_activity_about">AboutActivity</string>
 </resources>
