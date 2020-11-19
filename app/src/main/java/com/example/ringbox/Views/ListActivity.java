@@ -26,7 +26,7 @@ public class ListActivity extends AppCompatActivity implements IListInterfaces.V
         Toolbar toolbar = findViewById(R.id.toolbarForm);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
-            getSupportActionBar().setTitle("List");
+            getSupportActionBar().setTitle(getResources().getString(R.string.title_activity_list));
 
         } else {
             Log.d(TAG, "Error al cargar toolbar");

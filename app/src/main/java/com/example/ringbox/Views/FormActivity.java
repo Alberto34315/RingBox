@@ -27,7 +27,7 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setTitle("Form");
+            getSupportActionBar().setTitle(getResources().getString(R.string.title_activity_form));
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

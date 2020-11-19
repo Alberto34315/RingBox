@@ -33,7 +33,7 @@ public class SearchActivity extends AppCompatActivity implements ISearchInterfac
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setTitle("Search");
+            getSupportActionBar().setTitle(getResources().getString(R.string.title_activity_search));
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -46,6 +46,7 @@ public class SearchActivity extends AppCompatActivity implements ISearchInterfac
         }
         presenter=new SearchPresenter(this);
         Button save=(Button) findViewById(R.id.buttonSearch);
+
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

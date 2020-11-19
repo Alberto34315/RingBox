@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/Telefono"
+            android:id="@+id/fecha"
             android:layout_width="match_parent"
             android:layout_height="57dp"
             android:hint="dd/mm/aaaa" />
@@ -26,7 +26,7 @@
         android:id="@+id/nombreInputLayout"
         android:layout_width="260dp"
         android:layout_height="61dp"
-        android:layout_marginBottom="170dp"
+        android:layout_marginBottom="150dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +54,7 @@
         android:id="@+id/buttonSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="310dp"
+        android:layout_marginTop="290dp"
         android:text="Search"
         app:icon="@android:drawable/ic_menu_search"
         app:layout_constraintBottom_toBottomOf="parent"

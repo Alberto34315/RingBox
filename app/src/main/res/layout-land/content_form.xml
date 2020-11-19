@@ -161,7 +161,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/Telefono"
+                    android:id="@+id/fecha"
                     android:layout_width="match_parent"
                     android:layout_height="57dp"
                     android:hint="dd/mm/aaaa" />

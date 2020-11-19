@@ -2,13 +2,7 @@ package com.example.ringbox.Views;
 
 import android.os.Bundle;
 
-import com.example.ringbox.Interfaces.IAboutInterfaces;
-import com.example.ringbox.Interfaces.IFormInterfaces;
-import com.example.ringbox.Presenters.AboutPresenter;
-import com.example.ringbox.Presenters.FormPresenter;
 import com.example.ringbox.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -16,9 +10,8 @@ import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 
-public class AboutActivity extends AppCompatActivity implements IAboutInterfaces.View{
+public class AboutActivity extends AppCompatActivity {
     String TAG="RingBox/AboutActivity";
-    private IAboutInterfaces.Presenter presenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +21,7 @@ public class AboutActivity extends AppCompatActivity implements IAboutInterfaces
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setTitle("About");
+            getSupportActionBar().setTitle(getResources().getString(R.string.title_activity_about));
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -39,7 +32,6 @@ public class AboutActivity extends AppCompatActivity implements IAboutInterfaces
         } else {
             Log.d(TAG, "Error al cargar toolbar");
         }
-        presenter=new AboutPresenter(this);
     }
     @Override
     public boolean onNavigateUp() {
@@ -47,8 +39,5 @@ public class AboutActivity extends AppCompatActivity implements IAboutInterfaces
         return true;
     }
 
-    @Override
-    public void closeAboutActivity() {
 
-    }
 }

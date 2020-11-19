@@ -11,6 +11,7 @@
         android:id="@+id/FechaTextInputLayout"
         android:layout_width="287dp"
         android:layout_height="52dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/Telefono"
+            android:id="@+id/fecha"
             android:layout_width="match_parent"
             android:layout_height="57dp"
             android:hint="dd/mm/aaaa" />
@@ -28,6 +29,7 @@
         android:id="@+id/nombreInputLayout"
         android:layout_width="260dp"
         android:layout_height="61dp"
+        android:layout_marginStart="30dp"
         android:layout_marginBottom="350dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,6 +47,7 @@
         android:id="@+id/desplegable2"
         android:layout_width="223dp"
         android:layout_height="46dp"
+        android:layout_marginStart="30dp"
         android:layout_marginBottom="100dp"
         android:background="@android:drawable/btn_dropdown"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -58,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="250dp"
-        android:text="Search"
+        android:text="@string/search"
         app:icon="@android:drawable/ic_menu_search"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
