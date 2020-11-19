@@ -56,6 +56,14 @@ public class ListActivity extends AppCompatActivity implements IListInterfaces.V
         Intent intent = new Intent(getApplicationContext(), AboutActivity.class);
         startActivity(intent);
     }
+
+    @Override
+    public void startSearchActivity() {
+        Log.d(TAG,"startSearchActivity.....");
+        Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -85,6 +93,7 @@ public class ListActivity extends AppCompatActivity implements IListInterfaces.V
         }
         if (id == R.id.action_search) {
             Log.d(TAG, "Starting search");
+          presenter.onClickMenuSearch();
             return true;
         }
 

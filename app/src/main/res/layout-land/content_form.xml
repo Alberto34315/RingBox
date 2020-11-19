@@ -22,6 +22,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <ImageButton
+                android:id="@+id/anadirButton2"
+                android:layout_width="34dp"
+                android:layout_height="42dp"
+                app:layout_constraintBottom_toBottomOf="@+id/desplegable"
+                app:layout_constraintStart_toEndOf="@+id/desplegable"
+                app:layout_constraintTop_toTopOf="@+id/desplegable"
+                app:srcCompat="@android:drawable/ic_input_add" />
+
             <ImageView
                 android:id="@+id/calendarIco"
                 android:layout_width="41dp"
@@ -37,7 +46,7 @@
                 android:layout_height="55dp"
                 app:layout_constraintBottom_toBottomOf="@+id/desplegable"
                 app:layout_constraintEnd_toStartOf="@+id/desplegable"
-                app:layout_constraintTop_toBottomOf="@+id/movilInputLayout"
+                app:layout_constraintTop_toTopOf="@+id/desplegable"
                 app:srcCompat="@drawable/ic_boxeo"
                 tools:ignore="MissingConstraints" />
 
@@ -115,7 +124,7 @@
                 android:id="@+id/apellido1InputLayout"
                 android:layout_width="237dp"
                 android:layout_height="71dp"
-                android:layout_marginBottom="190dp"
+                android:layout_marginBottom="240dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -131,10 +140,10 @@
 
             <Spinner
                 android:id="@+id/desplegable"
-                android:layout_width="312dp"
-                android:layout_height="27dp"
-                android:layout_marginTop="280dp"
-                android:foregroundTint="#FFFFFF"
+                android:layout_width="212dp"
+                android:layout_height="37dp"
+                android:layout_marginBottom="120dp"
+                android:background="@android:drawable/btn_dropdown"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -253,16 +262,6 @@
                 app:layout_constraintEnd_toStartOf="@+id/profesional"
                 app:layout_constraintTop_toTopOf="@+id/profesional"
                 app:srcCompat="@drawable/empresario_profesional" />
-
-            <ImageButton
-                android:id="@+id/anadirButton"
-                android:layout_width="34dp"
-                android:layout_height="42dp"
-                android:layout_marginStart="1dp"
-                app:layout_constraintBottom_toBottomOf="@+id/FechaTextInputLayout"
-                app:layout_constraintStart_toEndOf="@+id/FechaTextInputLayout"
-                app:layout_constraintTop_toTopOf="@+id/FechaTextInputLayout"
-                app:srcCompat="@android:drawable/ic_input_add" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

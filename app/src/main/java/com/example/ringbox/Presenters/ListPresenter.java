@@ -18,6 +18,12 @@ public class ListPresenter implements IListInterfaces.Presenter {
     }
 
     @Override
+    public void onClickMenuSearch() {
+        Log.d(TAG,"onClickMenuSearch.....");
+        view.startSearchActivity();
+    }
+
+    @Override
     public void onClickMenuAbout() {
         Log.d(TAG,"onClickMenuAbout.....");
         view.startAboutActivity();

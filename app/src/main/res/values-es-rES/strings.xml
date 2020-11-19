@@ -14,4 +14,6 @@
     <string name="first_fragment_label">Primer Fragmento</string>
     <string name="hello_first_fragment">Hola Primer Fragmento</string>
     <string name="hello_second_fragment">Hola Segundo Fragmento</string>
+    <string name="title_activity_about">Actividad Sobre nosotros</string>
+    <string name="title_activity_search">Atividad Buscar</string>
 </resources>

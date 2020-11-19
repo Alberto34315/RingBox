@@ -10,9 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RingBox">
         <activity
+            android:name=".Views.SearchActivity"
+            android:label="@string/title_activity_search"
+            android:theme="@style/Theme.RingBox.NoActionBar"></activity>
+        <activity
             android:name=".Views.AboutActivity"
             android:label="@string/title_activity_about"
-            android:theme="@style/Theme.RingBox.NoActionBar"></activity>
+            android:theme="@style/Theme.RingBox.NoActionBar" />
         <activity
             android:name=".Views.FormActivity"
             android:label="@string/title_activity_form"
