@@ -1,5 +1,7 @@
 package com.example.ringbox.Views;
 
+import android.app.DatePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
 
 import com.example.ringbox.Interfaces.IFormInterfaces;
@@ -19,11 +21,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
+
+import java.util.Calendar;
 
 public class SearchActivity extends AppCompatActivity implements ISearchInterfaces.View {
     String TAG="RingBox/SearchActivity";
     private ISearchInterfaces.Presenter presenter;
+    Context myContext;
+    EditText editTextDate;
+    ImageView Date;
+    Calendar calendar ;
+    DatePickerDialog datePickerDialog ;
+    int Year, Month, Day ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +70,32 @@ public class SearchActivity extends AppCompatActivity implements ISearchInterfac
         Spinner spinner = (Spinner) findViewById(R.id.desplegable2);
         String[] categoria = {"Mosca-Ligero","Mosca","Gallo","Pluma","Ligero","Súper-Ligero","Welter","Medio","Semi-Pesado","Pesado","Súper-Pesado"};
         spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categoria));
+        myContext = this;
+        // Obtener la fecha actual
+        calendar = Calendar.getInstance();
+        Year = calendar.get(Calendar.YEAR) ;
+        Month = calendar.get(Calendar.MONTH);
+        Day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        editTextDate = (EditText)findViewById(R.id.fecha);
+
+        // Definir la acción del botón para abrir el calendario
+        Date = (ImageView)findViewById(R.id.calendarIco);
+        Date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Definir el calendario con la fecha seleccionada por defecto
+                datePickerDialog = new DatePickerDialog(myContext, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int day) {
+                        // Asignar la fecha a un campo de texto
+                        editTextDate.setText(String.valueOf(day) + "/" + String.valueOf(month) + "/" + String.valueOf(year));
+                    }
+                },Year, Month, Day);
+                // Mostrar el calendario
+                datePickerDialog.show();
+            }
+        });
 
     }
 
@@ -81,5 +120,40 @@ public class SearchActivity extends AppCompatActivity implements ISearchInterfac
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    protected void onStart() {
+        Log.d(TAG, "Starting onStart");
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        Log.d(TAG, "Starting onResume");
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        Log.d(TAG, "Starting onPause");
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        Log.d(TAG, "Starting onStop");
+        super.onStop();
+    }
+
+    @Override
+    protected void onRestart() {
+        Log.d(TAG, "Starting onRestart");
+        super.onRestart();
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.d(TAG, "Starting onDestroy");
+        super.onDestroy();
     }
 }

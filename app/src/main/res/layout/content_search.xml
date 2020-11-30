@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#A1E3EC"
+    style="@style/Background"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <com.google.android.material.textfield.TextInputLayout
@@ -22,7 +22,8 @@
             android:id="@+id/fecha"
             android:layout_width="match_parent"
             android:layout_height="57dp"
-            android:hint="dd/mm/aaaa" />
+            android:hint="dd/mm/aaaa"
+            android:enabled="false" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -45,11 +46,11 @@
 
     <Spinner
         android:id="@+id/desplegable2"
+        style="@style/Spinner"
         android:layout_width="223dp"
         android:layout_height="46dp"
         android:layout_marginStart="30dp"
         android:layout_marginBottom="100dp"
-        android:background="@android:drawable/btn_dropdown"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -85,6 +86,7 @@
         app:layout_constraintEnd_toStartOf="@+id/desplegable2"
         app:layout_constraintTop_toTopOf="@+id/desplegable2"
         app:srcCompat="@drawable/ic_boxeo" />
+
     <ImageView
         android:id="@+id/calendarIco"
         android:layout_width="41dp"
@@ -93,6 +95,7 @@
         app:layout_constraintEnd_toStartOf="@+id/FechaTextInputLayout"
         app:layout_constraintTop_toTopOf="@+id/FechaTextInputLayout"
         app:srcCompat="@drawable/calendario" />
+
     <TextView
         android:id="@+id/categoria"
         android:layout_width="wrap_content"

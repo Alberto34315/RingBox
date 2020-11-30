@@ -38,6 +38,40 @@ public class AboutActivity extends AppCompatActivity {
         // Asignar la acción necesaria. En este caso terminar la actividad
         return true;
     }
+    @Override
+    protected void onStart() {
+        Log.d(TAG, "Starting onStart");
+        super.onStart();
+    }
 
+    @Override
+    protected void onResume() {
+        Log.d(TAG, "Starting onResume");
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        Log.d(TAG, "Starting onPause");
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        Log.d(TAG, "Starting onStop");
+        super.onStop();
+    }
+
+    @Override
+    protected void onRestart() {
+        Log.d(TAG, "Starting onRestart");
+        super.onRestart();
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.d(TAG, "Starting onDestroy");
+        super.onDestroy();
+    }
 
 }

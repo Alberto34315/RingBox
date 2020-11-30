@@ -10,13 +10,18 @@
     <string name="title_activity_form">Formulario</string>
     <string name="next">Siguiente</string>
     <string name="previous">Anterior</string>
-    <string name="second_fragment_label">Segundo Fragmento</string>
-    <string name="first_fragment_label">Primer Fragmento</string>
-    <string name="hello_first_fragment">Hola Primer Fragmento</string>
-    <string name="hello_second_fragment">Hola Segundo Fragmento</string>
     <string name="title_activity_about">Sobre nosotros</string>
     <string name="title_activity_search">Buscar</string>
     <string name="Save">Guardar</string>
-    <string name="Delete">Elimiar</string>
+    <string name="Delete">Eliminar</string>
     <string name="Clean">Limpiar</string>
+    <string name="name_error">Introduzca la primera letra en mayúsculas</string>
+    <string name="telf_error">El numero de telefono debe ser de 9 dígitos</string>
+    <string name="num_error">Por favor, introduzca numeros y no otros caracteres</string>
+    <string name="date_error">Por favor introduzca una fecha válida</string>
+    <string name="deleteQuestion">¿Estás seguro de querer eliminar al boxeador?</string>
+    <string name="cancel">Cancelar</string>
+    <string name="confirm">confirmar</string>
+    <string name="new1">Nuevo</string>
+    <string name="voidString">Por favor, Introduzca un cadena de texto</string>
 </resources>

@@ -5,7 +5,7 @@
     android:id="@+id/Constrain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#A1E3EC"
+    style="@style/Background"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <ScrollView
@@ -46,7 +46,7 @@
                 android:layout_width="315dp"
                 android:layout_height="73dp"
                 android:layout_marginStart="40dp"
-                android:layout_marginTop="190dp"
+                android:layout_marginTop="250dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -62,8 +62,8 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/nameInputLayout"
-                android:layout_width="172dp"
-                android:layout_height="60dp"
+                android:layout_width="170dp"
+                android:layout_height="83dp"
                 android:layout_marginStart="178dp"
                 android:layout_marginBottom="430dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -98,7 +98,7 @@
                 android:layout_width="239dp"
                 android:layout_height="68dp"
                 android:layout_marginStart="40dp"
-                android:layout_marginTop="170dp"
+                android:layout_marginTop="100dp"
                 android:layout_marginBottom="170dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -134,11 +134,11 @@
 
             <Spinner
                 android:id="@+id/desplegable"
+                style="@style/Spinner"
                 android:layout_width="218dp"
                 android:layout_height="39dp"
                 android:layout_marginStart="40dp"
-                android:layout_marginBottom="120dp"
-                android:background="@android:drawable/btn_dropdown"
+                android:layout_marginTop="80dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -147,8 +147,8 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/FechaTextInputLayout"
-                android:layout_width="313dp"
-                android:layout_height="52dp"
+                android:layout_width="312dp"
+                android:layout_height="66dp"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="400dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -260,7 +260,7 @@
                 app:srcCompat="@drawable/empresario_profesional" />
 
             <ImageButton
-                android:id="@+id/anadirButton"
+                android:id="@+id/addButton"
                 android:layout_width="34dp"
                 android:layout_height="42dp"
                 app:layout_constraintBottom_toBottomOf="@+id/desplegable"
