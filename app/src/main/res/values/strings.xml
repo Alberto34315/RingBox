@@ -25,4 +25,5 @@
     <string name="confirm">confirm</string>
     <string name="new1">New</string>
     <string name="voidString">Please enter a text string</string>
+    <string name="choose_picture">Select an image</string>
 </resources>

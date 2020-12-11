@@ -4,15 +4,31 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class BoxerEntity {
+    private String id;
     private String name;
     private String apellido1;
     private String apellido2;
     private String telf;
     private String date;
+    private String img;
     public BoxerEntity() {
     }
 
+    public String getImg() {
+        return img;
+    }
 
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

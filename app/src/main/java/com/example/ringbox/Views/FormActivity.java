@@ -1,11 +1,16 @@
 package com.example.ringbox.Views;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.example.ringbox.Interfaces.IFormInterfaces;
@@ -17,6 +22,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -31,6 +37,9 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -38,13 +47,20 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
     String TAG="RingBox/FormActivity";
     private IFormInterfaces.Presenter presenter;
 
-    Context myContext;
-    EditText editTextDate;
-    ImageView Date;
-    Calendar calendar ;
-    DatePickerDialog datePickerDialog ;
-    int Year, Month, Day ;
-
+    private Context myContext;
+    private EditText editTextDate;
+    private ImageView Date;
+    private Calendar calendar ;
+    private DatePickerDialog datePickerDialog ;
+    private int Year, Month, Day ;
+    private String nombre;
+    private String ap1;
+    private String ap2;
+    private static final int REQUEST_CAPTURE_IMAGE = 200;
+    private static final int REQUEST_SELECT_IMAGE = 201;
+    final String pathFotos = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/RingBox/";
+    private Uri uri;
+    private String tlf;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +83,71 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
         validarApellido2(boxer);
         validarPhone(boxer);
          validarDate(boxer);
+        ImageView buttonGallery = (ImageView) findViewById(R.id.Image);
+        buttonGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectPicture();
+            }
+        });
+    }
+    private void selectPicture(){
+        // Se le pide al sistema una imagen del dispositivo
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(
+                Intent.createChooser(intent, getResources().getString(R.string.choose_picture)),
+                REQUEST_SELECT_IMAGE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+
+            case (REQUEST_CAPTURE_IMAGE):
+                if (resultCode == Activity.RESULT_OK) {
+                    // Se carga la imagen desde un objeto URI al imageView
+                    ImageView imageView = findViewById(R.id.imageView);
+                    imageView.setImageURI(uri);
+
+                    // Se le envía un broadcast a la Galería para que se actualice
+                    Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                    mediaScanIntent.setData(uri);
+                    sendBroadcast(mediaScanIntent);
+                } else if (resultCode == Activity.RESULT_CANCELED) {
+                    // Se borra el archivo temporal
+                    File file = new File(uri.getPath());
+                    file.delete();
+                }
+                break;
+
+            case (REQUEST_SELECT_IMAGE):
+                if (resultCode == Activity.RESULT_OK) {
+                    // Se carga la imagen desde un objeto Bitmap
+                    Uri selectedImage = data.getData();
+                    String selectedPath = selectedImage.getPath();
+
+                    if (selectedPath != null) {
+                        // Se leen los bytes de la imagen
+                        InputStream imageStream = null;
+                        try {
+                            imageStream = getContentResolver().openInputStream(selectedImage);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+
+                        // Se transformam los bytes de la imagen a un Bitmap
+                        Bitmap bmp = BitmapFactory.decodeStream(imageStream);
+
+                        // Se carga el Bitmap en el ImageView
+                        ImageView imageView = findViewById(R.id.imageView);
+                        imageView.setImageBitmap(bmp);
+                    }
+                }
+                break;
+        }
     }
     public void spinn(Spinner spinner){
         ArrayList<String> categoria = new ArrayList();
@@ -238,6 +319,14 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
 
             }
         });
+        //Realizar en los demas
+       nombre=getIntent().getStringExtra("name");
+       if(nombre!=null){
+          // recupera info de la entidad
+         nameET.setText(nombre);
+       }else{
+           //Deshabilitar el boton eliminar
+       }
     }
     public void validarApellido1(BoxerEntity boxer){
         EditText apellido1ET=findViewById(R.id.apellido1);
@@ -260,6 +349,13 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
 
             }
         });
+        ap1=getIntent().getStringExtra("ap1");
+        if(ap1!=null){
+            // recupera info de la entidad
+            apellido1ET.setText(ap1);
+        }else{
+            //Deshabilitar el boton eliminar
+        }
     }
     public void validarApellido2(BoxerEntity boxer){
         EditText apellido2ET=findViewById(R.id.apellido2);
@@ -282,6 +378,13 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
 
             }
         });
+        ap2=getIntent().getStringExtra("ap2");
+        if(ap2!=null){
+            // recupera info de la entidad
+            apellido2ET.setText(ap2);
+        }else{
+            //Deshabilitar el boton eliminar
+        }
     }
     public void validarPhone(BoxerEntity boxer){
         EditText telfET=findViewById(R.id.movil);
@@ -307,6 +410,13 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
 
             }
         });
+        tlf=getIntent().getStringExtra("tlf");
+        if(tlf!=null){
+            // recupera info de la entidad
+            telfET.setText(tlf);
+        }else{
+            //Deshabilitar el boton eliminar
+        }
     }
 
 

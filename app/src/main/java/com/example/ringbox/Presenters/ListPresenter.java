@@ -18,6 +18,11 @@ public class ListPresenter implements IListInterfaces.Presenter {
     }
 
     @Override
+    public void onClickRecyclerViewItem(String id) {
+        view.startFormActivity(id);
+    }
+
+    @Override
     public void onClickMenuSearch() {
         Log.d(TAG,"onClickMenuSearch.....");
         view.startSearchActivity();
