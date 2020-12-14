@@ -26,4 +26,10 @@
     <string name="new1">New</string>
     <string name="voidString">Please enter a text string</string>
     <string name="choose_picture">Select an image</string>
+    <string name="check_normal_permission">Check normal permission</string>
+    <string name="check_dangerous_permission">Check dangerous permission</string>
+    <string name="write_permission_denied">You don\'t have writing permission</string>
+    <string name="write_permission_granted">You have writing permission</string>
+    <string name="write_permission_accepted">You have accepted Write permission</string>
+    <string name="write_permission_not_accepted">You have not accepted Write permission</string>
 </resources>

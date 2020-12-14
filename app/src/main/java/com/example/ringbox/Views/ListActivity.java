@@ -1,20 +1,16 @@
 package com.example.ringbox.Views;
 
 import android.content.Intent;
-import android.graphics.Canvas;
 import android.os.Bundle;
 
 import com.example.ringbox.Interfaces.IListInterfaces;
 import com.example.ringbox.Models.BoxerEntity;
 import com.example.ringbox.Presenters.ListPresenter;
-import com.example.ringbox.Presenters.SwipeController;
 import com.example.ringbox.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.ItemTouchHelper.Callback;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,7 +18,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -104,15 +99,7 @@ public class ListActivity extends AppCompatActivity implements IListInterfaces.V
 
         // Muestra el RecyclerView en vertical
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        SwipeController swipeController = new SwipeController();
-        ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeController);
-        itemTouchhelper.attachToRecyclerView(recyclerView);
-        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
-            @Override
-            public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
-                swipeController.onDraw(c);
-            }
-        });
+
     }
 
     @Override

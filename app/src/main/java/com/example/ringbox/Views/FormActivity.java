@@ -1,12 +1,13 @@
 package com.example.ringbox.Views;
 
-import android.annotation.SuppressLint;
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -17,10 +18,13 @@ import com.example.ringbox.Interfaces.IFormInterfaces;
 import com.example.ringbox.Models.BoxerEntity;
 import com.example.ringbox.Presenters.FormPresenter;
 import com.example.ringbox.R;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
 
 import android.os.Environment;
 import android.util.Log;
@@ -56,6 +60,8 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
     private String nombre;
     private String ap1;
     private String ap2;
+    final private int CODE_WRITE_EXTERNAL_STORAGE_PERMISSION = 123;
+    private ConstraintLayout constraintLayoutMainActivity;
     private static final int REQUEST_CAPTURE_IMAGE = 200;
     private static final int REQUEST_SELECT_IMAGE = 201;
     final String pathFotos = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/RingBox/";
@@ -70,6 +76,7 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
         presenter=new FormPresenter(this);
         buttonSave(presenter);
         buttonDelete(presenter);
+        buttonClean();
 
         myContext = this;
         datePicker(myContext);
@@ -83,15 +90,45 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
         validarApellido2(boxer);
         validarPhone(boxer);
          validarDate(boxer);
-        ImageView buttonGallery = (ImageView) findViewById(R.id.Image);
-        buttonGallery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                selectPicture();
+
+        constraintLayoutMainActivity = findViewById(R.id.Constrain);
+        // Los permisos peligrosos se deben solicitar en tiempo de ejecución si no se poseen
+        // Si se acepta un permiso del grupo al que pertenezca se están aceptando también el resto de permisos
+        // Los permisos deben aparecer en Manifest.xml
+        ImageView img = (ImageView) findViewById(R.id.Image);
+        img.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+            presenter.onClickImage();
             }
         });
+
     }
-    private void selectPicture(){
+    @Override
+    public void permission(){
+        ActivityCompat.requestPermissions(FormActivity.this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, CODE_WRITE_EXTERNAL_STORAGE_PERMISSION);
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case CODE_WRITE_EXTERNAL_STORAGE_PERMISSION:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permiso aceptado
+                    presenter.permissionGranted();
+                } else {
+                    // Permiso rechazado
+                  presenter.permissionDenied();
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+    @Override
+    public void showError(){
+        Snackbar.make(constraintLayoutMainActivity, getResources().getString(R.string.write_permission_denied), Snackbar.LENGTH_LONG).show();
+    }
+    @Override
+    public void selectPicture(){
         // Se le pide al sistema una imagen del dispositivo
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -140,10 +177,10 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
 
                         // Se transformam los bytes de la imagen a un Bitmap
                         Bitmap bmp = BitmapFactory.decodeStream(imageStream);
-
+                        Bitmap imageScaled = Bitmap.createScaledBitmap(bmp, 200, 200, false);
                         // Se carga el Bitmap en el ImageView
-                        ImageView imageView = findViewById(R.id.imageView);
-                        imageView.setImageBitmap(bmp);
+                        ImageView imageView = findViewById(R.id.Image);
+                        imageView.setImageBitmap(imageScaled);
                     }
                 }
                 break;
@@ -211,6 +248,17 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
             }
         });
     }
+    public void buttonClean(){
+        Button save=(Button) findViewById(R.id.clean);
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "Click on Clean Button");
+                ImageView buttonGallery = (ImageView) findViewById(R.id.Image);
+                buttonGallery.setImageBitmap(null);
+            }
+        });
+    }
     public void buttonSave(IFormInterfaces.Presenter presenter){
         Button save=(Button) findViewById(R.id.guardar);
         save.setOnClickListener(new View.OnClickListener() {
@@ -267,7 +315,7 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
                         // Asignar la fecha a un campo de texto
-                        editTextDate.setText(String.valueOf(day) + "/" + String.valueOf(month) + "/" + String.valueOf(year));
+                        editTextDate.setText(String.valueOf(day) + "/" + String.valueOf(month+1) + "/" + String.valueOf(year));
                     }
                 },Year, Month, Day);
                 // Mostrar el calendario

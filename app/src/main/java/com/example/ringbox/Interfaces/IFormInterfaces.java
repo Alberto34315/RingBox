@@ -2,16 +2,23 @@ package com.example.ringbox.Interfaces;
 
 import android.content.Intent;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 public interface IFormInterfaces {
     public interface View {
         void closeFormActivity();
         void alertDelete();
-        void onActivityResult(int requestCode, int resultCode, Intent data);
+        void permission();
+        void selectPicture();
+        void showError();
     }
 
     public interface Presenter {
         void onClickSaveButton();
         void onClickDeleteButton();
-        public String getError(int error_code);
+        String getError(int error_code);
+        void onClickImage();
+        void permissionGranted();
+        void permissionDenied();
     }
 }
