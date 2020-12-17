@@ -89,7 +89,7 @@ public class SearchActivity extends AppCompatActivity implements ISearchInterfac
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
                         // Asignar la fecha a un campo de texto
-                        editTextDate.setText(String.valueOf(day) + "/" + String.valueOf(month) + "/" + String.valueOf(year));
+                        editTextDate.setText(String.valueOf(day) + "/" + String.valueOf(month+1) + "/" + String.valueOf(year));
                     }
                 },Year, Month, Day);
                 // Mostrar el calendario

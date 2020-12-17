@@ -13,5 +13,6 @@ public interface IListInterfaces {
         void onClickRecyclerViewItem(String id);
         void onClickMenuAbout();
         void onClickMenuSearch();
+        String getMSG(int error_code);
     }
 }

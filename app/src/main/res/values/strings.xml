@@ -32,4 +32,7 @@
     <string name="write_permission_granted">You have writing permission</string>
     <string name="write_permission_accepted">You have accepted Write permission</string>
     <string name="write_permission_not_accepted">You have not accepted Write permission</string>
+    <string name="boxerDelete">Boxer has been removed: </string>
+    <string name="del_success">Has been successfully removed</string>
+    <string name="del_denied">Could not delete</string>
 </resources>
