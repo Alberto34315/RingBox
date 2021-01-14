@@ -35,4 +35,5 @@
     <string name="boxerDelete">Boxer has been removed: </string>
     <string name="del_success">Has been successfully removed</string>
     <string name="del_denied">Could not delete</string>
+    <string name="allFields">All fields except the image must be complete</string>
 </resources>

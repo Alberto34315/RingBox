@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -27,13 +28,16 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 
 import android.os.Environment;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -41,11 +45,15 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.UUID;
+
+import io.realm.Realm;
 
 public class FormActivity extends AppCompatActivity implements IFormInterfaces.View{
     String TAG="RingBox/FormActivity";
@@ -60,6 +68,14 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
     private String nombre;
     private String ap1;
     private String ap2;
+    private  EditText nameET;
+    private  EditText dateET;
+    private EditText apellido1ET;
+    private EditText apellido2ET;
+    private EditText telfET;
+    private CheckBox check;
+    private BoxerEntity boxer;
+    private  ImageView img;
     final private int CODE_WRITE_EXTERNAL_STORAGE_PERMISSION = 123;
     private ConstraintLayout constraintLayoutMainActivity;
     private static final int REQUEST_CAPTURE_IMAGE = 200;
@@ -84,18 +100,18 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
         Spinner spinner = (Spinner) findViewById(R.id.desplegable);
         spinn(spinner);
 
-        BoxerEntity boxer=new BoxerEntity();
+        check=(CheckBox) findViewById(R.id.profesional);
+        boxer=new BoxerEntity();
         validarNombre(boxer);
         validarApellido1(boxer);
         validarApellido2(boxer);
         validarPhone(boxer);
-         validarDate(boxer);
-
+        validarDate(boxer);
         constraintLayoutMainActivity = findViewById(R.id.Constrain);
         // Los permisos peligrosos se deben solicitar en tiempo de ejecución si no se poseen
         // Si se acepta un permiso del grupo al que pertenezca se están aceptando también el resto de permisos
         // Los permisos deben aparecer en Manifest.xml
-        ImageView img = (ImageView) findViewById(R.id.Image);
+          img = (ImageView) findViewById(R.id.Image);
         img.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             presenter.onClickImage();
@@ -247,7 +263,19 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
                         .show();
             }
         });
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+               boxer.setCategory(categoria.get(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
+
     public void buttonClean(){
         Button save=(Button) findViewById(R.id.clean);
         save.setOnClickListener(new View.OnClickListener() {
@@ -260,12 +288,40 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
         });
     }
     public void buttonSave(IFormInterfaces.Presenter presenter){
+        dateET=findViewById(R.id.fecha);
+        nameET=findViewById(R.id.name);
+        apellido1ET=findViewById(R.id.apellido1);
+        apellido2ET=findViewById(R.id.apellido2);
+        telfET=findViewById(R.id.movil);
+        img = (ImageView) findViewById(R.id.Image);
         Button save=(Button) findViewById(R.id.guardar);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "Click on Save Button");
-                presenter.onClickSaveButton();
+
+                if(boxer.setDate(dateET.getText().toString()) &&
+                        boxer.setName(nameET.getText().toString()) &&
+                        boxer.setApellido1(apellido1ET.getText().toString()) &&
+                        boxer.setApellido2(apellido2ET.getText().toString()) &&
+                        boxer.setTelf(telfET.getText().toString()) !=-2 &&
+                        boxer.setTelf(telfET.getText().toString()) !=-3
+                ){
+                    boxer.setProfessional(check.isChecked());
+                    if(img!=null&&img.getDrawable()!=null){
+                        Bitmap bitmap = ((BitmapDrawable) img.getDrawable()).getBitmap();
+                        if(bitmap!=null){
+                            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                            bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                            byte[] byteArray = byteArrayOutputStream.toByteArray();
+                            String fotoEnBase64 = Base64.encodeToString(byteArray, Base64.DEFAULT);
+                            boxer.setImg(fotoEnBase64);
+                        }
+                    }
+                    presenter.onClickSaveButton(boxer);
+                }else{
+                Toast.makeText(getApplicationContext(),presenter.getError(-6),Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
@@ -324,7 +380,7 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
         });
     }
     public void validarDate(BoxerEntity boxer){
-        EditText dateET=findViewById(R.id.fecha);
+        dateET=findViewById(R.id.fecha);
         TextInputLayout dateTIL=findViewById(R.id.FechaTextInputLayout);
         dateET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -347,7 +403,7 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
         });
     }
    public void validarNombre(BoxerEntity boxer){
-        EditText nameET=findViewById(R.id.name);
+        nameET=findViewById(R.id.name);
         TextInputLayout nameTIL=findViewById(R.id.nameInputLayout);
         nameET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -377,14 +433,14 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
        }
     }
     public void validarApellido1(BoxerEntity boxer){
-        EditText apellido1ET=findViewById(R.id.apellido1);
+        apellido1ET=findViewById(R.id.apellido1);
         TextInputLayout apellido1TIL=findViewById(R.id.apellido1InputLayout);
         apellido1ET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
                 if (!hasFocus) {
                     Log.d("FormActivity", "Exit EditText");
-                    if (boxer.setName(apellido1ET.getText().toString()) == false ) {
+                    if (boxer.setApellido1(apellido1ET.getText().toString()) == false ) {
                         apellido1ET.setError(presenter.getError(-1));
                         apellido1TIL.setBoxStrokeColor(Color.RED);
                     } else {
@@ -406,14 +462,14 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
         }
     }
     public void validarApellido2(BoxerEntity boxer){
-        EditText apellido2ET=findViewById(R.id.apellido2);
+        apellido2ET=findViewById(R.id.apellido2);
         TextInputLayout apellido2TIL=findViewById(R.id.apellido2InputLayout);
         apellido2ET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
                 if (!hasFocus) {
                     Log.d("FormActivity", "Exit EditText");
-                    if (boxer.setName(apellido2ET.getText().toString()) == false ) {
+                    if (boxer.setApellido2(apellido2ET.getText().toString()) == false ) {
                         apellido2ET.setError(presenter.getError(-1));
                         apellido2TIL.setBoxStrokeColor(Color.RED);
                     } else {
@@ -435,7 +491,7 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
         }
     }
     public void validarPhone(BoxerEntity boxer){
-        EditText telfET=findViewById(R.id.movil);
+        telfET=findViewById(R.id.movil);
         TextInputLayout telfTIL=findViewById(R.id.movilInputLayout);
         telfET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -551,4 +607,5 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
         Log.d(TAG, "Starting onDestroy");
         super.onDestroy();
     }
+
 }

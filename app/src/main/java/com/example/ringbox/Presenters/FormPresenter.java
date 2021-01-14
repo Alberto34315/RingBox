@@ -11,6 +11,8 @@ import androidx.core.content.ContextCompat;
 
 import com.example.ringbox.Interfaces.IFormInterfaces;
 import com.example.ringbox.Interfaces.IListInterfaces;
+import com.example.ringbox.Models.BoxerEntity;
+import com.example.ringbox.Models.BoxerModel;
 import com.example.ringbox.R;
 import com.example.ringbox.Views.FormActivity;
 import com.example.ringbox.Views.MyApplication;
@@ -19,14 +21,21 @@ import com.google.android.material.snackbar.Snackbar;
 public class FormPresenter implements IFormInterfaces.Presenter {
     String TAG="RingBox/FormPresenter";
     private IFormInterfaces.View view;
+    private BoxerModel bModel;
     public FormPresenter(IFormInterfaces.View view) {
         this.view=view;
+        this.bModel= new BoxerModel();
     }
 
     @Override
-    public void onClickSaveButton() {
+    public void onClickSaveButton(BoxerEntity b) {
         Log.d(TAG,"onClickSaveButton.....");
-        view.closeFormActivity();
+        Log.d(TAG,b.toString());
+        if(bModel.insert(b)){
+            view.closeFormActivity();
+        }else{
+
+        }
     }
 
     @Override
@@ -86,6 +95,9 @@ public class FormPresenter implements IFormInterfaces.Presenter {
                 break;
             case -5:
                 error_msg = MyApplication.getContext().getResources().getString(R.string.voidString);
+                break;
+            case -6:
+                error_msg = MyApplication.getContext().getResources().getString(R.string.allFields);
                 break;
             default:
                 error_msg = "";

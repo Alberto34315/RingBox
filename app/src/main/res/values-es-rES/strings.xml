@@ -34,4 +34,5 @@
     <string name="boxerDelete">"Se ha eliminado el boxeador: "</string>
     <string name="del_success">Se ha eliminado correctamente</string>
     <string name="del_denied">No se ha podido eliminar</string>
+    <string name="allFields">Todos los campos menos la imagen debe estar completos</string>
 </resources>

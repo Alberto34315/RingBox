@@ -4,6 +4,8 @@ import android.content.Intent;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.ringbox.Models.BoxerEntity;
+
 public interface IFormInterfaces {
     public interface View {
         void closeFormActivity();
@@ -14,7 +16,7 @@ public interface IFormInterfaces {
     }
 
     public interface Presenter {
-        void onClickSaveButton();
+        void onClickSaveButton(BoxerEntity b);
         void onClickDeleteButton();
         String getError(int error_code);
         void onClickImage();

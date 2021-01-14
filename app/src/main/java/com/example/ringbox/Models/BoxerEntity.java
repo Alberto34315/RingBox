@@ -2,16 +2,31 @@ package com.example.ringbox.Models;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+public class BoxerEntity extends RealmObject{
 
-public class BoxerEntity {
+    @PrimaryKey
     private String id;
+
     private String name;
     private String apellido1;
     private String apellido2;
     private String telf;
     private String date;
+    private String category;
+    private boolean professional;
     private String img;
     public BoxerEntity() {
+        this.id="";
+        this.name="";
+        this.apellido1="";
+        this.apellido2="";
+        this.telf="";
+        this.date="";
+        this.category="";
+        this.professional=false;
+        this.img="";
     }
 
     public String getImg() {
@@ -118,5 +133,36 @@ public class BoxerEntity {
             result= false;
         }
         return result;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public boolean isProfessional() {
+        return professional;
+    }
+
+    public void setProfessional(boolean professional) {
+        this.professional = professional;
+    }
+
+    @Override
+    public String toString() {
+        return "BoxerEntity{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", apellido1='" + apellido1 + '\'' +
+                ", apellido2='" + apellido2 + '\'' +
+                ", telf='" + telf + '\'' +
+                ", date='" + date + '\'' +
+                ", category='" + category + '\'' +
+                ", professional=" + professional +
+                ", img='" + img + '\'' +
+                '}';
     }
 }
