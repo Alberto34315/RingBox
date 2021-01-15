@@ -1,5 +1,9 @@
 package com.example.ringbox.Interfaces;
 
+import com.example.ringbox.Models.BoxerEntity;
+
+import java.util.ArrayList;
+
 public interface IListInterfaces {
     public interface View {
         void startFormActivity();
@@ -14,5 +18,6 @@ public interface IListInterfaces {
         void onClickMenuAbout();
         void onClickMenuSearch();
         String getMSG(int error_code);
+        ArrayList<BoxerEntity> getAllSummarize();
     }
 }

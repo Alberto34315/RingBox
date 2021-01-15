@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
@@ -34,7 +35,7 @@ public class ListActivity extends AppCompatActivity implements IListInterfaces.V
     private BoxerEntity deletedBoxer = null;
     private RecyclerView recyclerView;
     private boxerAdapter adaptador;
-
+    private TextView size;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +62,7 @@ public class ListActivity extends AppCompatActivity implements IListInterfaces.V
         // Crea una lista con los elementos a mostrar
         //Esto es Provisional
         items = new ArrayList<BoxerEntity>();
-        BoxerEntity b1 = new BoxerEntity();
+      /*  BoxerEntity b1 = new BoxerEntity();
         b1.setId("1");
         b1.setName("Paco");
         b1.setApellido1("Sanchez");
@@ -141,6 +142,8 @@ public class ListActivity extends AppCompatActivity implements IListInterfaces.V
         items.add(b8);
         items.add(b9);
         items.add(b10);
+*/
+        items=presenter.getAllSummarize();
 
         // Inicializa el RecyclerView
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
@@ -188,6 +191,8 @@ public class ListActivity extends AppCompatActivity implements IListInterfaces.V
                     if(items.remove(position)==deletedBoxer){
                         Toast.makeText(getApplicationContext(),presenter.getMSG(-1),Toast.LENGTH_LONG).show();
                         adaptador.notifyItemRemoved(position);
+                        size=(TextView) findViewById(R.id.idSizeList);
+                        size.setText(items.size()+" Resultados");
                     }else{
                         Toast.makeText(getApplicationContext(),presenter.getMSG(-2),Toast.LENGTH_LONG).show();
                     }
@@ -312,6 +317,10 @@ public class ListActivity extends AppCompatActivity implements IListInterfaces.V
     protected void onResume() {
         Log.d(TAG, "Starting onResume");
         super.onResume();
+        items.clear();
+        items.addAll(presenter.getAllSummarize());
+        size=(TextView) findViewById(R.id.idSizeList);
+        size.setText(items.size()+" Resultados");
     }
 
     @Override

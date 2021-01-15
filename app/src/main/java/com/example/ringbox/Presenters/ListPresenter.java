@@ -3,14 +3,20 @@ package com.example.ringbox.Presenters;
 import android.util.Log;
 
 import com.example.ringbox.Interfaces.IListInterfaces;
+import com.example.ringbox.Models.BoxerEntity;
+import com.example.ringbox.Models.BoxerModel;
 import com.example.ringbox.R;
 import com.example.ringbox.Views.MyApplication;
+
+import java.util.ArrayList;
 
 public class ListPresenter implements IListInterfaces.Presenter {
     String TAG="RingBox/ListPresenter";
         private IListInterfaces.View view;
+    private BoxerModel bModel;
     public ListPresenter(IListInterfaces.View view) {
         this.view=view;
+        this.bModel= new BoxerModel();
     }
 
     @Override
@@ -49,5 +55,8 @@ public class ListPresenter implements IListInterfaces.Presenter {
                 error_msg = "";
         }
         return error_msg;
+    }
+    public ArrayList<BoxerEntity> getAllSummarize(){
+        return bModel.getAllSummarize();
     }
 }
