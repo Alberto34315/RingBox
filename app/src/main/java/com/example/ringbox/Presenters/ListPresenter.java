@@ -10,6 +10,9 @@ import com.example.ringbox.Views.MyApplication;
 
 import java.util.ArrayList;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
+
 public class ListPresenter implements IListInterfaces.Presenter {
     String TAG="RingBox/ListPresenter";
         private IListInterfaces.View view;
@@ -41,6 +44,7 @@ public class ListPresenter implements IListInterfaces.Presenter {
         Log.d(TAG,"onClickMenuAbout.....");
         view.startAboutActivity();
     }
+
     @Override
     public String getMSG(int error_code) {
         String error_msg = "";
@@ -56,7 +60,22 @@ public class ListPresenter implements IListInterfaces.Presenter {
         }
         return error_msg;
     }
+    @Override
     public ArrayList<BoxerEntity> getAllSummarize(){
         return bModel.getAllSummarize();
+    }
+
+    @Override
+    public boolean delete(BoxerEntity b) {
+        return this.bModel.delete(b);
+    }
+
+    @Override
+    public ArrayList<BoxerEntity> getFilter(String name, String date, String category){
+        return bModel.getFilter(name,date,category);
+    }
+    @Override
+    public ArrayList<String> getAllCategory() {
+        return bModel.getAllCategory();
     }
 }

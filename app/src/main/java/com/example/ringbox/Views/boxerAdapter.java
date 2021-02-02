@@ -41,6 +41,9 @@ public class boxerAdapter extends RecyclerView.Adapter<boxerAdapter.boxerViewHol
             byte[] decodedString= Base64.decode(item.getImg(), Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             img.setImageBitmap(decodedByte);
+          /*  if(item.getImg()!=""){
+                img.setBackground(null);
+            }*/
             TextView_nombre.setText(item.getName());
             TextView_apellidos.setText(item.getApellido1());
         }

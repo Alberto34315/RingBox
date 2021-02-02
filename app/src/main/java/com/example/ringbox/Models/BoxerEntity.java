@@ -28,7 +28,20 @@ public class BoxerEntity extends RealmObject{
         this.professional=false;
         this.img="";
     }
-    public BoxerEntity(String id,String name,String apellido1,String img) {
+
+    public BoxerEntity(String id, String name, String apellido1, String apellido2, String telf, String date, String category, boolean professional, String img) {
+        this.id = id;
+        this.name = name;
+        this.apellido1 = apellido1;
+        this.apellido2 = apellido2;
+        this.telf = telf;
+        this.date = date;
+        this.category = category;
+        this.professional = professional;
+        this.img = img;
+    }
+
+    public BoxerEntity(String id, String name, String apellido1, String img) {
         this.id=id;
         this.name=name;
         this.apellido1=apellido1;

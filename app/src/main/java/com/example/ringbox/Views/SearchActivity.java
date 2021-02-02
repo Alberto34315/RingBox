@@ -2,6 +2,7 @@ package com.example.ringbox.Views;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.ringbox.Interfaces.IFormInterfaces;
@@ -26,6 +27,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class SearchActivity extends AppCompatActivity implements ISearchInterfaces.View {
@@ -33,8 +35,12 @@ public class SearchActivity extends AppCompatActivity implements ISearchInterfac
     private ISearchInterfaces.Presenter presenter;
     Context myContext;
     EditText editTextDate;
+    EditText editTexname;
+    Spinner spinner;
     ImageView Date;
     Calendar calendar ;
+    private ArrayList<String> categoria;
+    private ArrayAdapter<String> adapter;
     DatePickerDialog datePickerDialog ;
     int Year, Month, Day ;
     @Override
@@ -67,9 +73,21 @@ public class SearchActivity extends AppCompatActivity implements ISearchInterfac
                 presenter.onClickSaveButton();
             }
         });
-        Spinner spinner = (Spinner) findViewById(R.id.desplegable2);
-        String[] categoria = {"Mosca-Ligero","Mosca","Gallo","Pluma","Ligero","Súper-Ligero","Welter","Medio","Semi-Pesado","Pesado","Súper-Pesado"};
-        spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categoria));
+        editTexname = (EditText)findViewById(R.id.nombre);
+        spinner = (Spinner) findViewById(R.id.desplegable2);
+
+        categoria = new ArrayList();
+        adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, categoria);
+        ArrayList<String> bEnt=presenter.getAllCategory();
+        categoria.add(0,"Categoría");
+        for (String b: bEnt){
+            categoria.add(b);
+        }
+
+
+        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
         myContext = this;
         // Obtener la fecha actual
         calendar = Calendar.getInstance();
@@ -100,8 +118,13 @@ public class SearchActivity extends AppCompatActivity implements ISearchInterfac
     }
 
     @Override
-    public void closeSearchActivity() {
-        Log.d(TAG,"CloseSearchActivity.....");
+    public void filter() {
+        Intent i = getIntent();
+        Log.d(TAG,editTexname.getText().toString());
+        i.putExtra("name", editTexname.getText().toString());
+        i.putExtra("spinner", spinner.getSelectedItemId());
+        i.putExtra("date", editTextDate.getText().toString());
+        setResult(RESULT_OK, i);
         finish();
     }
 

@@ -68,6 +68,10 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
     private String nombre;
     private String ap1;
     private String ap2;
+    private String category;
+    private String date;
+    private String image;
+    private boolean professional;
     private  EditText nameET;
     private  EditText dateET;
     private EditText apellido1ET;
@@ -76,6 +80,8 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
     private CheckBox check;
     private BoxerEntity boxer;
     private  ImageView img;
+    private ArrayList<String> categoria;
+    private ArrayAdapter<String> adapter;
     final private int CODE_WRITE_EXTERNAL_STORAGE_PERMISSION = 123;
     private ConstraintLayout constraintLayoutMainActivity;
     private static final int REQUEST_CAPTURE_IMAGE = 200;
@@ -98,10 +104,10 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
         datePicker(myContext);
 
         Spinner spinner = (Spinner) findViewById(R.id.desplegable);
-        spinn(spinner);
 
         check=(CheckBox) findViewById(R.id.profesional);
         boxer=new BoxerEntity();
+
         validarNombre(boxer);
         validarApellido1(boxer);
         validarApellido2(boxer);
@@ -117,6 +123,108 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
             presenter.onClickImage();
             }
         });
+
+        categoria = new ArrayList();
+        adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, categoria);
+        ArrayList<String> bEnt=presenter.getAllCategory();
+        for (String b: bEnt){
+                categoria.add(b);
+            }
+
+
+        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        // Definición de la acción del botón
+        ImageButton add=(ImageButton) findViewById(R.id.addButton);
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Recuperación de la vista del AlertDialog a partir del layout de la Actividad
+                LayoutInflater layoutActivity = LayoutInflater.from(myContext);
+                View viewAlertDialog = layoutActivity.inflate(R.layout.alert_dialog, null);
+
+                // Definición del AlertDialog
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(myContext);
+
+                // Asignación del AlertDialog a su vista
+                alertDialog.setView(viewAlertDialog);
+
+                // Recuperación del EditText del AlertDialog
+                final EditText dialogInput = (EditText) viewAlertDialog.findViewById(R.id.dialogInput);
+
+                // Configuración del AlertDialog
+                alertDialog
+                        .setCancelable(false)
+                        // Botón Añadir
+                        .setPositiveButton(getResources().getString(R.string.confirm),
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialogBox, int id) {
+                                        if(!dialogInput.getText().toString().isEmpty()){
+                                            adapter.add(dialogInput.getText().toString());
+                                            spinner.setSelection(adapter.getPosition(dialogInput.getText().toString()));
+                                        }else{
+                                            Toast.makeText(getApplicationContext(),presenter.getError(-5),Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                })
+                        // Botón Cancelar
+                        .setNeutralButton(getResources().getString(R.string.cancel),
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialogBox, int id) {
+                                        dialogBox.cancel();
+                                    }
+                                })
+                        .create()
+                        .show();
+            }
+        });
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                boxer.setCategory(categoria.get(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        String id= getIntent().getStringExtra("id");
+        Log.d(TAG, "id: "+id);
+        if(id!=null){
+            boxer=presenter.getById(id);
+            //boxer.setId(id);
+            image=boxer.getImg();
+            byte[] decodedString= Base64.decode(image, Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            img.setImageBitmap(decodedByte);
+
+            professional=boxer.isProfessional();
+            check.setChecked(professional);
+            category=boxer.getCategory();
+            spinner.setSelection(adapter.getPosition(category));
+            date=boxer.getDate();
+            dateET.setText(date);
+            //Realizar en los demas
+            nombre=boxer.getName();
+            nameET.setText(nombre);
+            ap1=boxer.getApellido1();
+            apellido1ET.setText(ap1);
+            ap2=boxer.getApellido2();
+            apellido2ET.setText(ap2);
+            tlf=boxer.getTelf();
+            telfET.setText(tlf);
+        }else{
+            //Deshabilitar el boton eliminar
+            Button delete=(Button) findViewById(R.id.eliminar);
+            delete.setEnabled(false);
+        }
+
+
+
+
 
     }
     @Override
@@ -142,6 +250,10 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
     @Override
     public void showError(){
         Snackbar.make(constraintLayoutMainActivity, getResources().getString(R.string.write_permission_denied), Snackbar.LENGTH_LONG).show();
+    }
+    @Override
+    public void showErrorInsertOrUpdate(){
+        Snackbar.make(constraintLayoutMainActivity, getResources().getString(R.string.ErrorInsertOUpdate), Snackbar.LENGTH_LONG).show();
     }
     @Override
     public void selectPicture(){
@@ -202,88 +314,16 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
                 break;
         }
     }
-    public void spinn(Spinner spinner){
-        ArrayList<String> categoria = new ArrayList();
-        categoria.add("Mosca-Ligero");
-        categoria.add("Mosca");
-        categoria.add("Gallo");
-        categoria.add("Pluma");
-        categoria.add("Ligero");
-        categoria.add("Súper-Ligero");
-        categoria.add("Welter");
-        categoria.add("Medio");
-        categoria.add("Semi-Pesado");
-        categoria.add("Pesado");
-        categoria.add("Súper-Pesado");
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, categoria);
-        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
 
-        // Definición de la acción del botón
-        ImageButton add=(ImageButton) findViewById(R.id.addButton);
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Recuperación de la vista del AlertDialog a partir del layout de la Actividad
-                LayoutInflater layoutActivity = LayoutInflater.from(myContext);
-                View viewAlertDialog = layoutActivity.inflate(R.layout.alert_dialog, null);
-
-                // Definición del AlertDialog
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(myContext);
-
-                // Asignación del AlertDialog a su vista
-                alertDialog.setView(viewAlertDialog);
-
-                // Recuperación del EditText del AlertDialog
-                final EditText dialogInput = (EditText) viewAlertDialog.findViewById(R.id.dialogInput);
-
-                // Configuración del AlertDialog
-                alertDialog
-                        .setCancelable(false)
-                        // Botón Añadir
-                        .setPositiveButton(getResources().getString(R.string.confirm),
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialogBox, int id) {
-                                        if(!dialogInput.getText().toString().isEmpty()){
-                                            adapter.add(dialogInput.getText().toString());
-                                            spinner.setSelection(adapter.getPosition(dialogInput.getText().toString()));
-                                        }else{
-                                            Toast.makeText(getApplicationContext(),presenter.getError(-5),Toast.LENGTH_LONG).show();
-                                        }
-                                    }
-                                })
-                        // Botón Cancelar
-                        .setNeutralButton(getResources().getString(R.string.cancel),
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialogBox, int id) {
-                                        dialogBox.cancel();
-                                    }
-                                })
-                        .create()
-                        .show();
-            }
-        });
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-               boxer.setCategory(categoria.get(position));
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-    }
 
     public void buttonClean(){
-        Button save=(Button) findViewById(R.id.clean);
-        save.setOnClickListener(new View.OnClickListener() {
+        Button clean=(Button) findViewById(R.id.clean);
+        clean.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "Click on Clean Button");
-                ImageView buttonGallery = (ImageView) findViewById(R.id.Image);
-                buttonGallery.setImageBitmap(null);
+                img = (ImageView) findViewById(R.id.Image);
+                img.setImageBitmap(null);
             }
         });
     }
@@ -295,6 +335,7 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
         telfET=findViewById(R.id.movil);
         img = (ImageView) findViewById(R.id.Image);
         Button save=(Button) findViewById(R.id.guardar);
+
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -308,7 +349,7 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
                         boxer.setTelf(telfET.getText().toString()) !=-3
                 ){
                     boxer.setProfessional(check.isChecked());
-                    if(img!=null&&img.getDrawable()!=null){
+                    if(img!=null && img.getDrawable()!=null){
                         Bitmap bitmap = ((BitmapDrawable) img.getDrawable()).getBitmap();
                         if(bitmap!=null){
                             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -316,9 +357,15 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
                             byte[] byteArray = byteArrayOutputStream.toByteArray();
                             String fotoEnBase64 = Base64.encodeToString(byteArray, Base64.DEFAULT);
                             boxer.setImg(fotoEnBase64);
+                        }else{
+                            boxer.setImg("");
                         }
                     }
-                    presenter.onClickSaveButton(boxer);
+                    if(!boxer.getCategory().isEmpty()){
+                        presenter.onClickSaveButton(boxer);
+                    }else{
+                        Toast.makeText(getApplicationContext(),presenter.getError(-7),Toast.LENGTH_LONG).show();
+                    }
                 }else{
                 Toast.makeText(getApplicationContext(),presenter.getError(-6),Toast.LENGTH_LONG).show();
                 }
@@ -378,6 +425,7 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
                 datePickerDialog.show();
             }
         });
+
     }
     public void validarDate(BoxerEntity boxer){
         dateET=findViewById(R.id.fecha);
@@ -423,14 +471,7 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
 
             }
         });
-        //Realizar en los demas
-       nombre=getIntent().getStringExtra("name");
-       if(nombre!=null){
-          // recupera info de la entidad
-         nameET.setText(nombre);
-       }else{
-           //Deshabilitar el boton eliminar
-       }
+
     }
     public void validarApellido1(BoxerEntity boxer){
         apellido1ET=findViewById(R.id.apellido1);
@@ -453,13 +494,7 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
 
             }
         });
-        ap1=getIntent().getStringExtra("ap1");
-        if(ap1!=null){
-            // recupera info de la entidad
-            apellido1ET.setText(ap1);
-        }else{
-            //Deshabilitar el boton eliminar
-        }
+
     }
     public void validarApellido2(BoxerEntity boxer){
         apellido2ET=findViewById(R.id.apellido2);
@@ -482,13 +517,7 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
 
             }
         });
-        ap2=getIntent().getStringExtra("ap2");
-        if(ap2!=null){
-            // recupera info de la entidad
-            apellido2ET.setText(ap2);
-        }else{
-            //Deshabilitar el boton eliminar
-        }
+
     }
     public void validarPhone(BoxerEntity boxer){
         telfET=findViewById(R.id.movil);
@@ -514,13 +543,7 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
 
             }
         });
-        tlf=getIntent().getStringExtra("tlf");
-        if(tlf!=null){
-            // recupera info de la entidad
-            telfET.setText(tlf);
-        }else{
-            //Deshabilitar el boton eliminar
-        }
+
     }
 
 
@@ -555,6 +578,7 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 closeFormActivity();
+                presenter.delete(boxer);
                // Toast.makeText(getApplicationContext(),"Yes button Clicked", Toast.LENGTH_LONG).show();
                 Log.i("Code2care ", "Yes button Clicked!");
             }

@@ -19,5 +19,8 @@ public interface IListInterfaces {
         void onClickMenuSearch();
         String getMSG(int error_code);
         ArrayList<BoxerEntity> getAllSummarize();
+        boolean delete(BoxerEntity b);
+        ArrayList<BoxerEntity> getFilter(String name, String date, String category);
+        ArrayList<String> getAllCategory();
     }
 }

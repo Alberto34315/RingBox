@@ -6,6 +6,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.ringbox.Models.BoxerEntity;
 
+import java.util.ArrayList;
+
 public interface IFormInterfaces {
     public interface View {
         void closeFormActivity();
@@ -13,6 +15,7 @@ public interface IFormInterfaces {
         void permission();
         void selectPicture();
         void showError();
+        void showErrorInsertOrUpdate();
     }
 
     public interface Presenter {
@@ -22,5 +25,9 @@ public interface IFormInterfaces {
         void onClickImage();
         void permissionGranted();
         void permissionDenied();
+        ArrayList<BoxerEntity> getAllSummarize();
+        BoxerEntity getById(String id);
+        boolean delete(BoxerEntity b);
+        ArrayList<String> getAllCategory();
     }
 }

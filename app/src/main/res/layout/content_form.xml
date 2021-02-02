@@ -85,7 +85,7 @@
                 android:layout_height="157dp"
                 android:layout_marginEnd="210dp"
                 android:layout_marginBottom="480dp"
-                android:background="@drawable/foto"
+                android:background="@android:drawable/ic_menu_report_image"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

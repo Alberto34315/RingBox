@@ -36,4 +36,7 @@
     <string name="del_success">Has been successfully removed</string>
     <string name="del_denied">Could not delete</string>
     <string name="allFields">All fields except the image must be complete</string>
+    <string name="ErrorInsertOUpdate">An error occurred when inserting or updating</string>
+    <string name="categoryEmpty">The boxer must have a category</string>
+    <string name="results">Results</string>
 </resources>

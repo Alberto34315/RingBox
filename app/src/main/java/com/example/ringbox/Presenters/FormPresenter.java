@@ -18,6 +18,8 @@ import com.example.ringbox.Views.FormActivity;
 import com.example.ringbox.Views.MyApplication;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.ArrayList;
+
 public class FormPresenter implements IFormInterfaces.Presenter {
     String TAG="RingBox/FormPresenter";
     private IFormInterfaces.View view;
@@ -34,7 +36,7 @@ public class FormPresenter implements IFormInterfaces.Presenter {
         if(bModel.insert(b)){
             view.closeFormActivity();
         }else{
-
+        view.showErrorInsertOrUpdate();
         }
     }
 
@@ -63,6 +65,10 @@ public class FormPresenter implements IFormInterfaces.Presenter {
             // Permiso aceptado
             view.selectPicture();
         }
+    }
+    @Override
+    public ArrayList<BoxerEntity> getAllSummarize(){
+        return bModel.getAllSummarize();
     }
 
     @Override
@@ -99,9 +105,26 @@ public class FormPresenter implements IFormInterfaces.Presenter {
             case -6:
                 error_msg = MyApplication.getContext().getResources().getString(R.string.allFields);
                 break;
+            case -7:
+                error_msg = MyApplication.getContext().getResources().getString(R.string.categoryEmpty);
+                break;
             default:
                 error_msg = "";
         }
         return error_msg;
+    }
+    @Override
+    public boolean delete(BoxerEntity b) {
+        return this.bModel.delete(b);
+    }
+
+    @Override
+    public ArrayList<String> getAllCategory() {
+        return bModel.getAllCategory();
+    }
+
+    @Override
+    public BoxerEntity getById(String id){
+        return bModel.getById(id);
     }
 }
