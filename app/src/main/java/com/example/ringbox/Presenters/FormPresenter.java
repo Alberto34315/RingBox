@@ -127,4 +127,10 @@ public class FormPresenter implements IFormInterfaces.Presenter {
     public BoxerEntity getById(String id){
         return bModel.getById(id);
     }
+
+    @Override
+    public void onClickMenuHelp() {
+        Log.d(TAG,"onClickMenuHelp.....");
+        view.startHelpActivity();
+    }
 }

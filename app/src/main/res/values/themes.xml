@@ -22,9 +22,11 @@
     <style name="Theme.RingBox.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.RingBox.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
     <style name="Background">
         <item name="android:background">#A1E3EC</item>
     </style>
+
     <style name="Spinner">
         <item name="android:background">@android:drawable/btn_dropdown</item>
         <item name="android:popupBackground">@color/colorSpinner</item>

@@ -44,7 +44,11 @@ public class ListPresenter implements IListInterfaces.Presenter {
         Log.d(TAG,"onClickMenuAbout.....");
         view.startAboutActivity();
     }
-
+    @Override
+    public void onClickMenuHelp() {
+        Log.d(TAG,"onClickMenuHelp.....");
+        view.startHelpActivity();
+    }
     @Override
     public String getMSG(int error_code) {
         String error_msg = "";

@@ -10,12 +10,14 @@ public interface IListInterfaces {
         void startFormActivity(String id);
         void startAboutActivity();
         void startSearchActivity();
+        void startHelpActivity();
     }
 
     public interface Presenter {
         void onClickFloatingButton();
         void onClickRecyclerViewItem(String id);
         void onClickMenuAbout();
+        void onClickMenuHelp();
         void onClickMenuSearch();
         String getMSG(int error_code);
         ArrayList<BoxerEntity> getAllSummarize();

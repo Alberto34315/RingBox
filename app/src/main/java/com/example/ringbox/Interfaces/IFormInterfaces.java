@@ -16,9 +16,11 @@ public interface IFormInterfaces {
         void selectPicture();
         void showError();
         void showErrorInsertOrUpdate();
+        void startHelpActivity();
     }
 
     public interface Presenter {
+        void onClickMenuHelp();
         void onClickSaveButton(BoxerEntity b);
         void onClickDeleteButton();
         String getError(int error_code);

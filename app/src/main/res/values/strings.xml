@@ -39,4 +39,8 @@
     <string name="ErrorInsertOUpdate">An error occurred when inserting or updating</string>
     <string name="categoryEmpty">The boxer must have a category</string>
     <string name="results">Results</string>
+    <!-- Strings used for fragments for navigation -->
+
+    <string name="title_help">Help</string>
+    <string name="title_activity_help">HelpActivity</string>
 </resources>

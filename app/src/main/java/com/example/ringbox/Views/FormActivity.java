@@ -564,6 +564,7 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
 
         if (id == R.id.action_help) {
             Log.d(TAG, "Starting Help");
+            presenter.onClickMenuHelp();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -595,7 +596,12 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
-
+    @Override
+    public void startHelpActivity() {
+        Log.d(TAG, "startHelpActivity.....");
+        Intent intent = new Intent(getApplicationContext(), HelpActivity.class);
+        startActivity(intent);
+    }
     @Override
     protected void onStart() {
         Log.d(TAG, "Starting onStart");

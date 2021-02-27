@@ -199,7 +199,12 @@ public class ListActivity extends AppCompatActivity implements IListInterfaces.V
         Intent intent = new Intent(getApplicationContext(), AboutActivity.class);
         startActivity(intent);
     }
-
+    @Override
+    public void startHelpActivity() {
+        Log.d(TAG, "startHelpActivity.....");
+        Intent intent = new Intent(getApplicationContext(), HelpActivity.class);
+        startActivity(intent);
+    }
     @Override
     public void startSearchActivity() {
         Log.d(TAG, "startSearchActivity.....");
@@ -228,6 +233,7 @@ public class ListActivity extends AppCompatActivity implements IListInterfaces.V
         }
         if (id == R.id.action_help) {
             Log.d(TAG, "Starting Help");
+            presenter.onClickMenuHelp();
             return true;
         }
         if (id == R.id.action_about) {

@@ -24,6 +24,11 @@ public class SearchPresenter implements ISearchInterfaces.Presenter {
     }
 
     @Override
+    public void onClickMenuHelp() {
+        Log.d(TAG,"onClickMenuHelp.....");
+        view.startHelpActivity();
+    }
+    @Override
     public ArrayList<String> getAllCategory() {
         return bModel.getAllCategory();
     }

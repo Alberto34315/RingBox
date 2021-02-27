@@ -38,4 +38,6 @@
     <string name="ErrorInsertOUpdate">Ha ocurrido un error en insertar o actualizar</string>
     <string name="categoryEmpty">El boxeador debe tener una categoría</string>
     <string name="results">Resultados</string>
+    <string name="title_help">Ayuda</string>
+    <string name="title_activity_help">HelpActivity</string>
 </resources>

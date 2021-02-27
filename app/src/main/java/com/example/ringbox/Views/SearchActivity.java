@@ -135,11 +135,18 @@ public class SearchActivity extends AppCompatActivity implements ISearchInterfac
         return true;
     }
     @Override
+    public void startHelpActivity() {
+        Log.d(TAG, "startHelpActivity.....");
+        Intent intent = new Intent(getApplicationContext(), HelpActivity.class);
+        startActivity(intent);
+    }
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
         if (id == R.id.action_helpsearch) {
             Log.d(TAG, "Starting Help");
+            presenter.onClickMenuHelp();
             return true;
         }
         return super.onOptionsItemSelected(item);
