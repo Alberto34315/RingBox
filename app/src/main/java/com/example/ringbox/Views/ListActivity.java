@@ -203,6 +203,7 @@ public class ListActivity extends AppCompatActivity implements IListInterfaces.V
     public void startHelpActivity() {
         Log.d(TAG, "startHelpActivity.....");
         Intent intent = new Intent(getApplicationContext(), HelpActivity.class);
+        intent.putExtra("help", "list");
         startActivity(intent);
     }
     @Override

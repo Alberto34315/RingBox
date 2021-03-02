@@ -138,6 +138,7 @@ public class SearchActivity extends AppCompatActivity implements ISearchInterfac
     public void startHelpActivity() {
         Log.d(TAG, "startHelpActivity.....");
         Intent intent = new Intent(getApplicationContext(), HelpActivity.class);
+        intent.putExtra("help", "search");
         startActivity(intent);
     }
     @Override
