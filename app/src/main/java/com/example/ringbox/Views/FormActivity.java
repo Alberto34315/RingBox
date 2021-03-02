@@ -600,6 +600,7 @@ public class FormActivity extends AppCompatActivity implements IFormInterfaces.V
     public void startHelpActivity() {
         Log.d(TAG, "startHelpActivity.....");
         Intent intent = new Intent(getApplicationContext(), HelpActivity.class);
+        intent.putExtra("help", "form");
         startActivity(intent);
     }
     @Override

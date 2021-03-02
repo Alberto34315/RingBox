@@ -61,7 +61,12 @@ public class HelpActivity extends AppCompatActivity {
                 onReceivedError(view, rerr.getErrorCode(), rerr.getDescription().toString(), req.getUrl().toString());
             }
         });
-        mWebview.loadUrl("https://alberto34315.github.io/RingBox/");
+        String help= getIntent().getStringExtra("help");
+        if(help=="form"){
+            mWebview.loadUrl("https://alberto34315.github.io/RingBox/form.html");
+        }else{
+            mWebview.loadUrl("https://alberto34315.github.io/RingBox/");
+        }
      //   setContentView(mWebview);
 
     }
