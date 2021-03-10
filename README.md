@@ -7,7 +7,7 @@ Aplicación desarrollada para la asignatura Desarrollo de Interfaces, la app se 
 Android 5 (API 21) o superiores
 
 ### Instalación 
- - Descargar la aplicación desde este enlace: https://github.com/Ciscu24/RealMeme/releases/tag/1.0
+ - Descargar la aplicación desde este enlace: https://github.com/Alberto34315/RingBox/releases/tag/1.0
  - Instalar en tu móvil.
  - Listo para gestionar los datos de nuestros boxeadores.
  
